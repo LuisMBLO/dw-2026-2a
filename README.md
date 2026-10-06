@@ -26,7 +26,7 @@ Possui a documentação do banco. Contém relacionamentos `n:n`.
 - Luíz Otávio Oliveira Silva
 - Mateus Henrique Cavicchioli
 - Miguel Henrique de Oliveira
-- Murillo da Silva Brito
+- Murillo da Silva Brito [@Murillomsb](https://github.com/Murillomsb)
 - Murilo Ferreira da Costa
 - Núria Vitória Ferreira da Silva
 - Otávio Augusto Oliveira Silva
