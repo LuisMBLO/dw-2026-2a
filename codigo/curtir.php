@@ -1,50 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Postagens</title>
+<?php
+session_start();
+require_once "verificar_sessao.php";
+require_once "conexao.php";
 
-</head>
-<body>
 
-<h1>Postagens</h1>
+$usuario_id = $_SESSION['idusuario'] ?? null;
+$postagem_id = $_POST['postagem_id'] ?? null;
 
-<?php foreach ($postagens as $post): ?>
-    <div class="postagem">
+if ($usuario_id && $postagem_id) {
+   
+    $sql_verifica = "SELECT * FROM curtida WHERE idusuario = $usuario_id AND idpostagem = $postagem_id";
+    $resultado = mysqli_query($conexao, $sql_verifica);
 
-        <h3>
-            <?= htmlspecialchars($post["nome"]) ?>
-        </h3>
+    if (mysqli_num_rows($resultado) > 0) {
+       
+        $sql_acao = "DELETE FROM curtida WHERE idusuario = $usuario_id AND idpostagem = $postagem_id";
+    } else {
+        
+        $sql_acao = "INSERT INTO curtida (idusuario, idpostagem) VALUES ($usuario_id, $postagem_id)";
+    }
 
-        <p>
-            <?= nl2br(htmlspecialchars($post["conteudo"])) ?>
-        </p>
+    mysqli_query($conexao, $sql_acao);
+}
 
-        <form action="curtir.php" method="POST">
-            <input
-                type="hidden"
-                name="postagem_id"
-                value="<?= (int) $post["id"] ?>"
-            >
 
-            <button
-                type="submit"
-                class="curtir <?= $post["usuario_curtiu"] ? 'curtido' : '' ?>"
-                <?= !$usuario_id ? 'disabled' : '' ?>
-            >
-                <?= $post["usuario_curtiu"]
-                    ? ' Descurtir'
-                    : ' Curtir' ?>
-            </button>
-
-            <span>
-                <?= (int) $post["total_curtidas"] ?>
-                curtida(s)
-            </span>
-        </form>
-
-    </div>
-<?php endforeach; ?>
-
-</body>
-</html>
+header("Location: listar_postagem.php");
+exit;
+?>
