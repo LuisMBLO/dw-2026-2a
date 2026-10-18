@@ -42,7 +42,7 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
     <h2>Lista de postagens</h2>
     <a href="home.php">Voltar para Home</a><br><br>
 
-    <!-- tabela -->
+ 
     <div class="postagens">
         <?php
         $sql = "SELECT postagem.idpostagem, postagem.texto, postagem.data_hora, usuario.idusuario, usuario.nome, usuario.apelido, usuario.foto
@@ -61,19 +61,18 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
             $nome = $linha['nome'];
             $apelido = $linha['apelido'];
 
-            // --- LÓGICA DE CURTIDAS PARA CADA POST ---
-            // 1. Conta o total de curtidas desta postagem no banco
+           
+            
             $sql_total = "SELECT COUNT(*) AS total FROM curtida WHERE idpostagem = $idpostagem";
             $res_total = mysqli_query($conexao, $sql_total);
             $dados_total = mysqli_fetch_assoc($res_total);
             $total_curtidas = $dados_total['total'];
 
-            // 2. Verifica se o usuário logado já curtiu esta postagem
+          
             $sql_user = "SELECT * FROM curtida WHERE idpostagem = $idpostagem AND idusuario = $usuario_logado_id";
             $res_user = mysqli_query($conexao, $sql_user);
             $usuario_curtiu = mysqli_num_rows($res_user) > 0;
-            // ----------------------------------------
-
+           
             echo "<div class='postagem'>";
 
             echo "<div>";
@@ -84,7 +83,6 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
 
             echo "<p>$texto</p>";
 
-            // --- FORMULÁRIO DO BOTÃO DE CURTIR ---
             ?>
             <form action="curtir.php" method="POST">
     <input type="hidden" name="postagem_id" value="<?= $idpostagem ?>">
@@ -105,9 +103,9 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
                 <span><?= $total_curtidas ?> curtida(s)</span>
             </form>
             <?php
-            // -------------------------------------
+           
 
-            //caixa dos comentarios
+            
             $sql3 = "SELECT comentario.idcomentario, comentario.idpostagem, comentario.texto, usuario.idusuario, usuario.nome, usuario.apelido, usuario.foto
             FROM comentario, usuario
             WHERE idpostagem = $idpostagem
