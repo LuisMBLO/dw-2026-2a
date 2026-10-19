@@ -89,18 +89,17 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
     
     <button type="submit" class="<?= $usuario_curtiu ? 'curtido' : '' ?>">
         <?php if ($usuario_curtiu): ?>
-            <!-- Se já curtiu: mostra a imagem do coração vermelho -->
+          
             <img src="../imagens/curtir.png" width="25" alt="Descurtir">
         <?php else: ?>
-            <!-- Se ainda não curtiu: mostra a imagem do coração cinza/vazio -->
+            
             <img src="../imagens/curtir1.png" width="25" alt="Curtir"> 
         <?php endif; ?>
     </button>
 
-    <span><?= $total_curtidas ?> curtida(s)</span>
 
 
-                <span><?= $total_curtidas ?> curtida(s)</span>
+             <span><?= $total_curtidas ?> curtida(s)</span>
             </form>
             <?php
            
@@ -118,7 +117,7 @@ $usuario_logado_id = $_SESSION['idusuario'] ?? 0;
                 echo "<br>Essa postagem não possui comentários.";
             } else {
                 echo "<div class='comentarios'>";
-                // listar comentários aqui
+               
 
                 while ($comentario = mysqli_fetch_array($comentarios)) {
                     $texto_comentario = $comentario['texto'];
